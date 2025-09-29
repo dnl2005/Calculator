@@ -77,6 +77,8 @@ namespace Interface
 
             OperationTextBox.Text = result.ToString();
 
+            string expression = currentInput.ToString();
+
             // Добавляем запись
             HistoryTextBox.AppendText($"{expression} = {result}\n\n");
             HistoryTextBox.ScrollToEnd();
