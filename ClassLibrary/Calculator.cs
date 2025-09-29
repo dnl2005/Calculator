@@ -7,15 +7,10 @@ namespace ClassLibrary
     {
         public static Dictionary<string, double> history = [];
 
-        /// <summary>
-        /// ������ ������� eval ��� �������������� ���������
-        /// </summary>
-        /// <param name="expression">  ���������, � ������� ����� ������� ������</param>
-        /// <returns> ���������� ������, ���������� int ��� double</returns>
 
         public static object Calculate(string expression, object defaultValue = null)
         {
-            //.complete ��� ��������� ���, ������ �����
+
 
             var result = new DataTable().Compute(expression, null);
 
@@ -23,7 +18,6 @@ namespace ClassLibrary
             if (result is double doubleResult && double.IsInfinity(doubleResult))
                 return defaultValue ?? "Ошибка: деление на 0";
 
-            // ��� �������� ���������� � ���������� (?) ���������� �������� ����� convert.
             return result;
         }
     }
