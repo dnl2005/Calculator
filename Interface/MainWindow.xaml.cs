@@ -73,7 +73,7 @@ namespace Interface
         // Равно 
         private void EqualsButton_Click(object sender, RoutedEventArgs e)
         {
-            var result = Calculator.Calculate(currentInput.ToString());
+            var result = Calculator.Calculate(currentInput.ToString().Replace(",", "."));
 
             OperationTextBox.Text = result.ToString();
         }
