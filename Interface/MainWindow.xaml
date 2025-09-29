@@ -6,17 +6,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Interface"
         mc:Ignorable="d"
-        Title="MainWindow"
+        Title="Калькулятор"
         Height="700"
         Width="450"
-        Background="#FF1B1818">
-    <Grid>
-        <!-- Дисплей калькулятора -->
-        <StackPanel VerticalAlignment="Top"
+        Background="#FF1B1818" ResizeMode="NoResize">
+    <!-- Основной TabControl -->
+    <TabControl Background="#FF1B1818">
+
+        <!-- Вкладка 1: Калькулятор -->
+        <TabItem Header="Калькулятор" Background="White">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="115*"/>
+                    <ColumnDefinition Width="329*"/>
+                </Grid.ColumnDefinitions>
+                <!-- Дисплей калькулятора -->
+                <StackPanel VerticalAlignment="Top"
                     Height="250"
-                    Width="450">
-            <!-- Верхний TextBox для основного результата -->
-            <TextBox x:Name="DisplayTextBox"
+                    Width="450" Grid.ColumnSpan="2" Margin="0,0,-6,0">
+                    <!-- Верхний TextBox для основного результата -->
+                    <TextBox x:Name="DisplayTextBox"
                      HorizontalAlignment="Center"
                      TextWrapping="Wrap"
                      Text="0"
@@ -33,8 +42,8 @@
                      TextChanged="DisplayTextBox_TextChanged"
                      BorderThickness="0" />
 
-            <!-- Нижний TextBox для отображения текущей операции -->
-            <TextBox x:Name="OperationTextBox"
+                    <!-- Нижний TextBox для отображения текущей операции -->
+                    <TextBox x:Name="OperationTextBox"
                      HorizontalAlignment="Center"
                      TextWrapping="Wrap"
                      Text=""
@@ -49,43 +58,31 @@
                      Foreground="Gray"
                      Padding="20"
                      BorderThickness="0" />
-        </StackPanel>
+                </StackPanel>
 
-        <!-- Кнопка истории  -->
-        <Button x:Name="History"
-                Content="📜"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Width="39"
-                Height="34"
-                FontSize="16"
-                Background="#FF0B25FF"
-                Foreground="White"
-                Click="HistoryButton_Click" />
-
-        <!-- Кнопки калькулятора -->
-        <Grid x:Name="Center"
-              HorizontalAlignment="Center"
+                <!-- Кнопки калькулятора -->
+                <Grid x:Name="Center"
+              HorizontalAlignment="Left"
               VerticalAlignment="Bottom"
               Height="400"
               Width="450"
-              Margin="0,0,0,20">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+              Margin="-3,0,0,20" Grid.ColumnSpan="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-            <!-- Первый ряд кнопок -->
-            <Button x:Name="AC"
+                    <!-- Первый ряд кнопок -->
+                    <Button x:Name="AC"
                     Content="AC"
                     Grid.Row="0"
                     Grid.Column="0"
@@ -94,7 +91,7 @@
                     Background="#FF3E518C"
                     Foreground="white"
                     Click="Button_Click_2" />
-            <Button x:Name="back"
+                    <Button x:Name="back"
                     Content="&lt;="
                     Grid.Row="0"
                     Grid.Column="1"
@@ -103,7 +100,7 @@
                     Background="#FF3E518C"
                     Foreground="White"
                     Click="BackspaceButton_Click" />
-            <Button x:Name="slesh"
+                    <Button x:Name="slesh"
                     Content="/"
                     Grid.Row="0"
                     Grid.Column="3"
@@ -113,8 +110,8 @@
                     Foreground="White"
                     Click="OperatorButton_Click" />
 
-            <!-- Второй ряд кнопок -->
-            <Button x:Name="seven"
+                    <!-- Второй ряд кнопок -->
+                    <Button x:Name="seven"
                     Content="7"
                     Grid.Row="1"
                     Grid.Column="0"
@@ -123,7 +120,7 @@
                     Background="#FF333333"
                     Foreground="White"
                     Click="NumberButton_Click" />
-            <Button x:Name="eight"
+                    <Button x:Name="eight"
                     Content="8"
                     Grid.Row="1"
                     Grid.Column="1"
@@ -132,7 +129,7 @@
                     Background="#FF333333"
                     Foreground="White"
                     Click="NumberButton_Click" />
-            <Button x:Name="nine"
+                    <Button x:Name="nine"
                     Content="9"
                     Grid.Row="1"
                     Grid.Column="2"
@@ -141,7 +138,7 @@
                     Background="#FF333333"
                     Foreground="White"
                     Click="NumberButton_Click" />
-            <Button x:Name="Asterisk"
+                    <Button x:Name="Asterisk"
                     Content="*"
                     Grid.Row="1"
                     Grid.Column="3"
@@ -151,8 +148,8 @@
                     Foreground="White"
                     Click="OperatorButton_Click" />
 
-            <!-- Третий ряд кнопок -->
-            <Button x:Name="four"
+                    <!-- Третий ряд кнопок -->
+                    <Button x:Name="four"
                     Content="4"
                     Grid.Row="2"
                     Grid.Column="0"
@@ -161,7 +158,7 @@
                     Background="#FF333333"
                     Foreground="White"
                     Click="NumberButton_Click" />
-            <Button x:Name="five"
+                    <Button x:Name="five"
                     Content="5"
                     Grid.Row="2"
                     Grid.Column="1"
@@ -170,7 +167,7 @@
                     Background="#FF333333"
                     Foreground="White"
                     Click="NumberButton_Click" />
-            <Button x:Name="six"
+                    <Button x:Name="six"
                     Content="6"
                     Grid.Row="2"
                     Grid.Column="2"
@@ -179,7 +176,7 @@
                     Background="#FF333333"
                     Foreground="White"
                     Click="NumberButton_Click" />
-            <Button x:Name="minus"
+                    <Button x:Name="minus"
                     Content="-"
                     Grid.Row="2"
                     Grid.Column="3"
@@ -189,8 +186,8 @@
                     Foreground="White"
                     Click="OperatorButton_Click" />
 
-            <!-- Четвертый ряд кнопок -->
-            <Button x:Name="one"
+                    <!-- Четвертый ряд кнопок -->
+                    <Button x:Name="one"
                     Content="1"
                     Grid.Row="3"
                     Grid.Column="0"
@@ -199,7 +196,7 @@
                     Background="#FF333333"
                     Foreground="White"
                     Click="NumberButton_Click" />
-            <Button x:Name="two"
+                    <Button x:Name="two"
                     Content="2"
                     Grid.Row="3"
                     Grid.Column="1"
@@ -208,7 +205,7 @@
                     Background="#FF333333"
                     Foreground="White"
                     Click="NumberButton_Click" />
-            <Button x:Name="three"
+                    <Button x:Name="three"
                     Content="3"
                     Grid.Row="3"
                     Grid.Column="2"
@@ -217,7 +214,7 @@
                     Background="#FF333333"
                     Foreground="White"
                     Click="NumberButton_Click" />
-            <Button x:Name="plus"
+                    <Button x:Name="plus"
                     Content="+"
                     Grid.Row="3"
                     Grid.Column="3"
@@ -227,8 +224,8 @@
                     Foreground="White"
                     Click="OperatorButton_Click" />
 
-            <!-- Пятый ряд кнопок -->
-            <Button x:Name="doublezero"
+                    <!-- Пятый ряд кнопок -->
+                    <Button x:Name="doublezero"
                     Content="00"
                     Grid.Row="4"
                     Grid.Column="0"
@@ -237,7 +234,7 @@
                     Background="#FF333333"
                     Foreground="White"
                     Click="NumberButton_Click" />
-            <Button x:Name="zero"
+                    <Button x:Name="zero"
                     Content="0"
                     Grid.Row="4"
                     Grid.Column="1"
@@ -246,7 +243,7 @@
                     Background="#FF333333"
                     Foreground="White"
                     Click="NumberButton_Click" />
-            <Button x:Name="Comma_"
+                    <Button x:Name="Comma_"
                     Content=","
                     Grid.Row="4"
                     Grid.Column="2"
@@ -255,7 +252,7 @@
                     Background="#FF333333"
                     Foreground="White"
                     Click="CommaButton_Click" />
-            <Button x:Name="Equals"
+                    <Button x:Name="Equals"
                     Content="="
                     Grid.Row="4"
                     Grid.Column="3"
@@ -264,6 +261,39 @@
                     Background="#FF3E518C"
                     Foreground="White"
                     Click="EqualsButton_Click" />
-        </Grid>
-    </Grid>
+                </Grid>
+            </Grid>
+        </TabItem>
+        <!-- Вкладка 2: например история -->
+        <TabItem Header="История" Background="White">
+            <Grid Margin="10" Background="#FF1B1818">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBox x:Name="HistoryTextBox"
+                 Grid.Row="0"
+                 Background="#FF2B2B2B"
+                 Foreground="White"
+                 FontFamily="Consolas"
+                 FontSize="20"
+                 BorderThickness="0"
+                 IsReadOnly="True"
+                 TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Auto"
+                 Padding="10"
+                 Margin="0,0,0,10"/>
+
+                <Button x:Name="ClearHistoryButton"
+                Grid.Row="1"
+                Content="Очистить историю"
+                Height="40"
+                Background="#FF3E518C"
+                Foreground="White"
+                FontSize="16"
+                Click="ClearHistoryButton_Click"/>
+            </Grid>
+        </TabItem>
+    </TabControl>
 </Window>

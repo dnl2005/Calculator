@@ -73,17 +73,19 @@ namespace Interface
         // Равно 
         private void EqualsButton_Click(object sender, RoutedEventArgs e)
         {
-            var result = Calculator.Calculate(currentInput.ToString());
+            string expression = currentInput.ToString();
+            var result = Calculator.Calculate(expression);
 
             OperationTextBox.Text = result.ToString();
-        }
 
-        // История 
-        private void HistoryButton_Click(object sender, RoutedEventArgs e)
+            // Добавляем запись
+            HistoryTextBox.AppendText($"{expression} = {result}\n\n");
+            HistoryTextBox.ScrollToEnd();
+        }
+        private void ClearHistoryButton_Click(object sender, RoutedEventArgs e)
         {
-            // сюда новую xaml бахните подключение к истории пж типо как создадите;
+            HistoryTextBox.Clear();
         }
-
         private void DisplayTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
