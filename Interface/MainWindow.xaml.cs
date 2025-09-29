@@ -9,6 +9,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using ClassLibrary;
+
 namespace Interface
 {
     public partial class MainWindow : Window
@@ -64,21 +66,16 @@ namespace Interface
         // C очистка
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            currentInput.Clear();
-            DisplayTextBox.Text = "0";
-        }
-
-        // Процент
-        private void PercentButton_Click(object sender, RoutedEventArgs e)
-        {
-            currentInput.Append("%");
-            DisplayTextBox.Text = currentInput.ToString();
+            currentInput.Append("00");
+            DisplayTextBox.Text = "00";
         }
 
         // Равно 
         private void EqualsButton_Click(object sender, RoutedEventArgs e)
         {
-            OperationTextBox.Text = currentInput.ToString() + " =";
+            var result = Calculator.Calculate(currentInput.ToString());
+
+            OperationTextBox.Text = result.ToString();
         }
 
         // История 
@@ -89,12 +86,7 @@ namespace Interface
 
         private void DisplayTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
-        }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-           
         }
     }
 }
