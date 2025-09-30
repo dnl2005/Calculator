@@ -10,7 +10,7 @@ namespace Interface
     public partial class MainWindow : Window
     {
         private StringBuilder currentInput = new StringBuilder();
-        private const int MaxDigits = 12; // ✅ ограничение на разрядность числа
+        private const int MaxDigits = 12; // ограничение на разрядность числа
 
         public MainWindow()
         {
@@ -60,7 +60,7 @@ namespace Interface
         {
             var button = (Button)sender;
 
-            // ✅ проверка ограничения на разрядность
+            // проверка ограничения на разрядность
             if (GetLastNumberLength() >= MaxDigits)
                 return;
 
@@ -77,7 +77,7 @@ namespace Interface
 
             if (IsLastCharOperator())
             {
-                // ✅ заменяем оператор вместо добавления
+                // заменяем оператор вместо добавления
                 currentInput[currentInput.Length - 1] = button.Content.ToString()[0];
             }
             else
@@ -93,9 +93,9 @@ namespace Interface
         {
             if (currentInput.Length == 0) return;
 
-            if (IsLastCharOperator()) return; // ✅ не ставим после оператора
-            if (IsLastCharComma()) return;    // ✅ не дублируем
-            if (HasCommaInCurrentNumber()) return; // ✅ только одна в числе
+            if (IsLastCharOperator()) return; // не ставим после оператора
+            if (IsLastCharComma()) return;    // не дублируем
+            if (HasCommaInCurrentNumber()) return; // только одна в числе
 
             currentInput.Append(",");
             DisplayTextBox.Text = currentInput.ToString();
@@ -122,7 +122,7 @@ namespace Interface
         // 00
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (GetLastNumberLength() + 2 <= MaxDigits) // ✅ проверка лимита
+            if (GetLastNumberLength() + 2 <= MaxDigits) // проверка лимита
             {
                 currentInput.Append("00");
                 DisplayTextBox.Text = currentInput.ToString();

@@ -17,7 +17,7 @@ namespace ClassLibrary
             {
                 var result = new DataTable().Compute(expression, null);
 
-                // ✅ Приводим всё к double (чтобы не было Int64 Overflow)
+                // Приводим всё к double (чтобы не было Int64 Overflow)
                 double value = Convert.ToDouble(result);
 
                 // проверка деления на 0
@@ -28,7 +28,7 @@ namespace ClassLibrary
             }
             catch (OverflowException)
             {
-                return "Ошибка: слишком большое число"; // ✅ обработка переполнения
+                return "Ошибка: слишком большое число"; // обработка переполнения
             }
             catch
             {
