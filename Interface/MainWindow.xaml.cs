@@ -135,22 +135,26 @@ namespace Interface
         private void EqualsButton_Click(object sender, RoutedEventArgs e)
         {
 
-            // Автоматически добавляем недостающие закрывающие скобки
+            // добавление скобок, если не все скобки были закрыты
             if (_unclosedParentheses > 0)
             {
-                for (int i = 0; i < _unclosedParentheses; i++)
+                // ласт символ оператор - удаляем
+                if (currentInput.Length > 0 && IsOperator(currentInput[^1]))
                 {
-                    // Проверяем, что последний символ подходит для закрывающей скобки
-                    if (currentInput.Length > 0 &&
-                        !IsOperator(currentInput[^1]) &&
-                        currentInput[^1] != '(')
-                    {
-                        currentInput.Append(")");
-                    }
+                    currentInput.Remove(currentInput.Length - 1, 1);
                 }
+
+                // чек можно ли ставить скобку
+                if (!IsOperator(currentInput[^1]) && currentInput[^1] != '(')
+                {
+                    currentInput.Append(new string(')', _unclosedParentheses));
+                }
+
                 _unclosedParentheses = 0;
                 DisplayTextBox.Text = currentInput.ToString();
             }
+
+
 
             var result = Calculator.Calculate(currentInput.ToString().Replace(",", "."));
 
@@ -178,21 +182,25 @@ namespace Interface
         {
             var button = (Button)sender;
 
+            //вариант открывающей скобки
             if (button.Name == "OpeningParenthesis")
             {
-                // Автоматически добавляем оператор умножения, если перед скобкой цифра
+                //перед скобкой цифра = добавить оператор унможения, если скобка открывающая
                 if (currentInput.Length > 0 &&
                    (char.IsDigit(currentInput[^1]) || currentInput[^1] == ')'))
                 {
-                    currentInput.Append("*");
+                    currentInput.Append("*"); 
                 }
                 currentInput.Append("(");
-                _unclosedParentheses++;
+                _unclosedParentheses++; // +1 в счетчик скобок
             }
+            //вариант закрывающей скобки
             else if (button.Name == "ClosingParenthesis")
             {
-                // Проверяем баланс скобок и что последний символ подходящий
-                if (_unclosedParentheses > 0 && currentInput.Length > 0 &&
+                // чек: есть ли незакрытые скобки
+                //      последний элемнет - цифра?
+                //      последний элемент - откр. скобка?
+                if (_unclosedParentheses > 0 &&
                    !IsOperator(currentInput[^1]) && currentInput[^1] != '(')
                 {
                     currentInput.Append(")");
@@ -203,6 +211,8 @@ namespace Interface
             DisplayTextBox.Text = currentInput.ToString();
         }
 
+
+        // проверка на оператор
         private bool IsOperator(char c) => c == '+' || c == '-' || c == '×' || c == '÷';
     }
 }
