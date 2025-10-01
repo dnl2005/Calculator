@@ -152,5 +152,38 @@ namespace Interface
         {
 
         }
+
+        //скобки
+        private void Parenthesis_Click(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+
+            if (button.Name == "OpeningParenthesis")
+            {
+                // Автоматически добавляем оператор умножения, если перед скобкой цифра
+                if (currentInput.Length > 0 &&
+                   (char.IsDigit(currentInput[^1]) || currentInput[^1] == ')'))
+                {
+                    currentInput.Append("×");
+                }
+                currentInput.Append("(");
+            }
+            else if (button.Name == "ClosingParenthesis")
+            {
+                // Проверяем баланс скобок и что последний символ подходящий
+                int openCount = currentInput.ToString().Count(c => c == '(');
+                int closeCount = currentInput.ToString().Count(c => c == ')');
+
+                if (openCount > closeCount && currentInput.Length > 0 &&
+                   !IsOperator(currentInput[^1]) && currentInput[^1] != '(')
+                {
+                    currentInput.Append(")");
+                }
+            }
+
+            DisplayTextBox.Text = currentInput.ToString();
+        }
+
+        private bool IsOperator(char c) => c == '+' || c == '-' || c == '×' || c == '÷';
     }
 }
