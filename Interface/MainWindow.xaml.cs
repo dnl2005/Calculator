@@ -11,6 +11,7 @@ namespace Interface
     {
         private StringBuilder currentInput = new StringBuilder();
         private const int MaxDigits = 12; // ограничение на разрядность числа
+        private int _unclosedParentheses = 0; // количество скобок
 
         public MainWindow()
         {
@@ -117,6 +118,7 @@ namespace Interface
             currentInput.Clear();
             DisplayTextBox.Text = "0";
             OperationTextBox.Text = "";
+            _unclosedParentheses = 0;
         }
 
         // 00
@@ -132,15 +134,37 @@ namespace Interface
         // Равно 
         private void EqualsButton_Click(object sender, RoutedEventArgs e)
         {
+
+            // добавление скобок, если не все скобки были закрыты
+            if (_unclosedParentheses > 0)
+            {
+                // ласт символ оператор - удаляем
+                if (currentInput.Length > 0 && IsOperator(currentInput[^1]))
+                {
+                    currentInput.Remove(currentInput.Length - 1, 1);
+                }
+
+                // чек можно ли ставить скобку
+                if (!IsOperator(currentInput[^1]) && currentInput[^1] != '(')
+                {
+                    currentInput.Append(new string(')', _unclosedParentheses));
+                }
+
+                _unclosedParentheses = 0;
+                DisplayTextBox.Text = currentInput.ToString();
+            }
+
+
+
             var result = Calculator.Calculate(currentInput.ToString().Replace(",", "."));
 
-            OperationTextBox.Text = result.ToString();
+                OperationTextBox.Text = result.ToString();
 
-            string expression = currentInput.ToString();
+                string expression = currentInput.ToString();
 
-            // Добавляем запись
-            HistoryTextBox.AppendText($"{expression} = {result}\n\n");
-            HistoryTextBox.ScrollToEnd();
+                // Добавляем запись
+                HistoryTextBox.AppendText($"{expression} = {result}\n\n");
+                HistoryTextBox.ScrollToEnd();
         }
 
         private void ClearHistoryButton_Click(object sender, RoutedEventArgs e)
@@ -152,5 +176,43 @@ namespace Interface
         {
 
         }
+
+        // Скобки
+        private void Parenthesis_Click(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+
+            //вариант открывающей скобки
+            if (button.Name == "OpeningParenthesis")
+            {
+                //перед скобкой цифра = добавить оператор унможения, если скобка открывающая
+                if (currentInput.Length > 0 &&
+                   (char.IsDigit(currentInput[^1]) || currentInput[^1] == ')'))
+                {
+                    currentInput.Append("*"); 
+                }
+                currentInput.Append("(");
+                _unclosedParentheses++; // +1 в счетчик скобок
+            }
+            //вариант закрывающей скобки
+            else if (button.Name == "ClosingParenthesis")
+            {
+                // чек: есть ли незакрытые скобки
+                //      последний элемнет - цифра?
+                //      последний элемент - откр. скобка?
+                if (_unclosedParentheses > 0 &&
+                   !IsOperator(currentInput[^1]) && currentInput[^1] != '(')
+                {
+                    currentInput.Append(")");
+                    _unclosedParentheses--;
+                }
+            }
+
+            DisplayTextBox.Text = currentInput.ToString();
+        }
+
+
+        // проверка на оператор
+        private bool IsOperator(char c) => c == '+' || c == '-' || c == '×' || c == '÷';
     }
 }
