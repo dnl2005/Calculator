@@ -158,13 +158,13 @@ namespace Interface
 
             var result = Calculator.Calculate(currentInput.ToString().Replace(",", "."));
 
-                OperationTextBox.Text = result.ToString();
+            OperationTextBox.Text = result.ToString();
 
-                string expression = currentInput.ToString();
+            string expression = currentInput.ToString();
 
-                // Добавляем запись
-                HistoryTextBox.AppendText($"{expression} = {result}\n\n");
-                HistoryTextBox.ScrollToEnd();
+            // Добавляем запись
+            HistoryTextBox.AppendText($"{expression} = {result}\n\n");
+            HistoryTextBox.ScrollToEnd();
         }
 
         private void ClearHistoryButton_Click(object sender, RoutedEventArgs e)
@@ -189,7 +189,7 @@ namespace Interface
                 if (currentInput.Length > 0 &&
                    (char.IsDigit(currentInput[^1]) || currentInput[^1] == ')'))
                 {
-                    currentInput.Append("*"); 
+                    currentInput.Append("*");
                 }
                 currentInput.Append("(");
                 _unclosedParentheses++; // +1 в счетчик скобок
@@ -213,6 +213,6 @@ namespace Interface
 
 
         // проверка на оператор
-        private bool IsOperator(char c) => c == '+' || c == '-' || c == '×' || c == '÷';
+        private bool IsOperator(char c) => c == '+' || c == '-' || c == '×' || c == '/';
     }
 }
